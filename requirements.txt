@@ -1,0 +1,34 @@
+# TORTINMANG.UZ — Requirements
+# Python 3.10+ (tavsiya: 3.11/3.12)
+#
+# DIQQAT: Loyiha faqat quyidagi kutubxonalarni ishlatadi.
+# Og'ir ML paketlar (tensorflow, xgboost, lightgbm, PyQt6...) kodda
+# umuman import qilinmaydi — o'rnatish shart emas.
+
+# ─── CORE (majburiy) ────────────────────────────────────────────
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-dotenv>=1.0.1
+pydantic>=2.10.0
+aiohttp>=3.11.7
+numpy>=1.26.0
+pandas>=2.2.0
+
+# ─── LOGGING ────────────────────────────────────────────────────
+colorlog>=6.9.0
+
+# ─── MT5 (faqat Windows! Linux/macOS da o'rnatib bo'lmaydi) ────
+# Windows da: pip install MetaTrader5
+# O'rnatilmasa ham bot demo/paper rejimda ishlaydi.
+# MetaTrader5==5.0.4424
+
+# ─── DATABASE (ixtiyoriy — DB yoqilgan bo'lsa) ─────────────────
+# asyncpg>=0.30.0
+# psycopg2-binary>=2.9.10
+# redis>=5.2.0
+
+# ─── IXTIYORIY qo'shimchalar (kodda hozircha ishlatilmaydi) ───
+# python-binance>=1.0.19   # ENABLE_BINANCE=true bo'lsa ham kod aiohttp ishlatadi
+# websockets>=14.1
+# scipy / ta / scikit-learn / xgboost / lightgbm / tensorflow
+# PyQt6 / pyqtgraph / plotly / celery / prometheus-client / pyinstaller

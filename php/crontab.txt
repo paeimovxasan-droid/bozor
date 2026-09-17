@@ -1,0 +1,7 @@
+# TORTINMANG.UZ PHP Lite — cron namunasi
+# cPanel → Cron Jobs ga qo'shing (USER o'rniga o'z usernamingiz):
+#
+* * * * * /usr/bin/php /home/USER/public_html/tortinmang/cycle.php >> /dev/null 2>&1
+#
+# php yo'li noma'lum bo'lsa: which php
+# Ba'zi hostinglarda: /usr/local/bin/php yoki /opt/php81/bin/php

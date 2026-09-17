@@ -1,0 +1,25 @@
+# TORTINMANG.UZ PHP Lite — xavfsizlik
+# Ma'lumot fayllariga tashqaridan kirishni taqiqlash
+<FilesMatch "\.(json|log|lock|tmp)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# config.php faqat PHP ichidan include qilinadi, HTTP da yopiq
+<Files "config.php">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</Files>
+
+# install.php ni o'chirganingizdan keyin bu qator ham kerak emas
+DirectoryIndex index.html
