@@ -76,6 +76,11 @@ Siz faqat telefoningizdan `admin.php` va Telegram orqali kuzatasiz.
    mavjud config ni qayta yozishda joriy admin parol so'raladi); `.htaccess`
    state/log/journal/config ni tashqaridan yopadi; admin panel CSRF himoyada.
 
+> 💡 **Cron zaxira rejimi:** cron qo'shish unutilsa ham, `status.php` ochiq
+> turganda sikl avtomatik ishga tushadi (75 sek dan eski bo'lsa). Baribir
+> cron qo'shgan ma'qul — sahifa yopiq bo'lsa zaxira ishlamaydi.
+> 🔐 Admin parol bo'sh qoldirilsa install.php o'zi yaratib ko'rsatadi.
+
 9. **Kuzatish:** `status.php` (Saqlash: **MySQL** ko'rinadi), `admin.php`
    va Telegram — hammasi telefonda ham ochiladi. Kompyuter kerak emas!
 
