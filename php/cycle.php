@@ -200,6 +200,12 @@ foreach ($positions as $p) {
 }
 
 // ── Yangi signallar ────────────────────────────────────────────
+// pending TTL: 30 daqiqadan eski kutayotgan yozuvlar tozalanadi,
+// aks holda simvol bloklanib qolishi mumkin
+foreach ($state['pending'] ?? [] as $psym => $prec) {
+    if (time() - intval($prec['ts'] ?? 0) > 1800) unset($state['pending'][$psym]);
+}
+
 if ($can_trade) {
     foreach ($cfg['SYMBOLS'] as $sym) {
         $has = false;

@@ -6,7 +6,13 @@
  */
 $dir = __DIR__;
 $msg = '';
+$existing = is_file($dir . '/config.php') ? require $dir . '/config.php' : null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Agar config allaqachon mavjud bo'lsa — qayta yozish uchun joriy admin parol kerak
+    if ($existing && !hash_equals((string)($existing['ADMIN_PASS'] ?? ''),
+                                   (string)($_POST['currentpass'] ?? ''))) {
+        $msg = 'Mavjud config.php ni qayta yozish uchun JORIY admin parolni kiriting!';
+    } else {
     $cfg = [
         'META_API_TOKEN'  => trim($_POST['token'] ?? ''),
         'META_ACCOUNT_ID' => trim($_POST['account'] ?? ''),
@@ -63,6 +69,7 @@ PHP;
             $msg = 'OK';
         }
     }
+    }
 }
 ?>
 <!doctype html>
@@ -100,6 +107,12 @@ ma'lumotlar faylda saqlanadi. DB ma'lumotlarini ISPmanager da tekshiring.</div>
 <div class="err">❌ <?= htmlspecialchars($msg) ?></div>
 <?php endif; ?>
 <form method="post">
+<?php if ($existing): ?>
+<div class="err">⚠️ <b>config.php allaqachon mavjud!</b> Qayta yozish uchun
+joriy admin parolni kiriting (bekor qilish uchun sahifani yoping).</div>
+<label>🔐 JORIY ADMIN PAROL</label>
+<input name="currentpass" type="password" placeholder="joriy parol">
+<?php endif; ?>
 <label>MetaApi TOKEN (app.metaapi.cloud/token)</label>
 <input name="token" placeholder="eyJhbGciOi...">
 <label>MetaApi ACCOUNT ID (ixtiyoriy — admin.php o'zi yaratadi)</label>

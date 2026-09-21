@@ -25,6 +25,8 @@ if (!empty($state['meta_account_id'])) $cfg['META_ACCOUNT_ID'] = $state['meta_ac
 
 $adminPass = $cfg['ADMIN_PASS'] ?? 'admin123';
 $notice = '';
+if (empty($_SESSION['tm_csrf'])) $_SESSION['tm_csrf'] = bin2hex(random_bytes(16));
+$csrf = $_SESSION['tm_csrf'];
 
 // ── Auth ───────────────────────────────────────────────────────
 if (isset($_GET['logout'])) { unset($_SESSION['tm_admin']); }
@@ -32,7 +34,10 @@ if (!empty($_SESSION['tm_admin'])) {
     // kirgan
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['act'] ?? '') === 'login') {
     if (hash_equals($adminPass, $_POST['pass'] ?? '')) {
+        session_regenerate_id(true);
         $_SESSION['tm_admin'] = 1;
+        $_SESSION['tm_csrf'] = bin2hex(random_bytes(16));
+        $csrf = $_SESSION['tm_csrf'];
     } else {
         $notice = 'Parol noto\'g\'ri!';
     }
@@ -60,6 +65,12 @@ if (empty($_SESSION['tm_admin'])) {
 
 // ── Amallar ────────────────────────────────────────────────────
 $act = $_POST['act'] ?? '';
+// CSRF himoya: login dan boshqa barcha amallar token talab qiladi
+if ($act !== '' && $act !== 'login' &&
+    !hash_equals($csrf, (string)($_POST['csrf'] ?? ''))) {
+    $act = '';
+    $notice = 'Xavfsizlik tekshiruvi o\'tmadi (sahifani yangilab qayta urinib ko\'ring).';
+}
 
 if ($act === 'connect') {
     // Libertex hisobni MetaApi orqali ulash
@@ -172,6 +183,7 @@ a{color:#58a6ff}
   <span class="red">● Hisob ulanmagan</span> — quyidagi forma orqali uling:
 <?php endif; ?>
 <form method="post">
+  <input type="hidden" name="csrf" value="<?= $csrf ?>">
   <input type="hidden" name="act" value="connect">
   <label>MetaApi API TOKEN (app.metaapi.cloud/token)</label>
   <input name="mtoken" placeholder="<?= $cfg['META_API_TOKEN'] ? '(config da bor)' : 'token...' ?>">
@@ -185,6 +197,7 @@ a{color:#58a6ff}
 </form>
 <details style="margin-top:10px"><summary class="gray">yoki tayyor Account ID kiritish</summary>
 <form method="post">
+  <input type="hidden" name="csrf" value="<?= $csrf ?>">
   <input type="hidden" name="act" value="manual_account">
   <label>MetaApi TOKEN</label><input name="mtoken">
   <label>ACCOUNT ID (uuid)</label><input name="accid" placeholder="865d3a4d-...">
@@ -215,18 +228,18 @@ a{color:#58a6ff}
 <td><?= stripos($p['type'] ?? '', 'BUY') !== false ? 'BUY' : 'SELL' ?></td>
 <td><?= $p['volume'] ?></td>
 <td class="<?= $pl >= 0 ? 'green' : 'red' ?>"><?= round($pl, 2) ?>$</td>
-<td><form method="post"><input type="hidden" name="act" value="close">
+<td><form method="post"><input type="hidden" name="csrf" value="<?= $csrf ?>"><input type="hidden" name="act" value="close">
 <input type="hidden" name="pid" value="<?= htmlspecialchars($p['id']) ?>">
 <button class="red" style="margin:0;padding:4px 10px">Yopish</button></form></td></tr>
 <?php endforeach; ?></table>
-<form method="post"><input type="hidden" name="act" value="closeall">
+<form method="post"><input type="hidden" name="csrf" value="<?= $csrf ?>"><input type="hidden" name="act" value="closeall">
 <button class="red">❌ Hammasini yopish</button></form>
 <?php endif; ?>
 </div>
 
 <div class="card">
 <h2>🛡️ Risk sozlamalari</h2>
-<form method="post"><input type="hidden" name="act" value="settings">
+<form method="post"><input type="hidden" name="csrf" value="<?= $csrf ?>"><input type="hidden" name="act" value="settings">
 <div class="row">
   <div><label>ETH risk %</label><input name="risk_eth" value="<?= htmlspecialchars($cfg['RISK_PCT']['ETHUSD'] ?? 1.0) ?>"></div>
   <div><label>XAU risk %</label><input name="risk_xau" value="<?= htmlspecialchars($cfg['RISK_PCT']['XAUUSD'] ?? 1.8) ?>"></div>
