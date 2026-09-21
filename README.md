@@ -3,19 +3,29 @@
 
 ---
 
-## ⚡ v2.0 — 3 TA BOSISHDA ISHGA TUSHIRISH (Windows)
+## 🐘 ASOSIY REJIM: 100% HOSTING (kompyuter kerak emas!)
 
-| Fayl | Vazifa |
-|------|--------|
-| 🟢 **`ORNATISH.bat`** | Hammasini avtomatik o'rnatadi (Python kutubxonalar, .env, test) — **birinchi shu** |
-| 🔵 **`START_BOT.bat`** | Botni ishga tushiradi |
-| 🟡 **`TEST_BOT.bat`** | 38 ta self-test — tizim sog'lomligini tekshiradi |
-| 🟣 **`BACKTEST.bat`** | Oxirgi 30 kunlik tarixda strategiya testi |
+Bot arzon PHP hostingda 24/7 ishlaydi — ISPmanager/cPanel, PHP 8.4 + MySQL.
+**TORTINMANG-PHP.zip** ni hostingga yuklab, `install.php` ni oching — xolos.
 
-Terminal orqali ham mumkin:
+| Sahifa | Vazifa |
+|--------|--------|
+| `install.php` | Web o'rnatuvchi (bir marta) |
+| `admin.php` | **Libertex hisob ulash, avto savdo, pozitsiyalar, sozlamalar** |
+| `check.php` / `test.php` | Ulanish va dvigatel tekshiruvi |
+| `status.php` | Jonli holat (balans, P&L, pog'ona) |
+
+To'liq qo'llanma: [`php/README_PHP.md`](./php/README_PHP.md) va **TORTINMANG-PHP-README.txt**
+
+---
+
+## 🧠 Python v2 — to'liq "miya" (136 g'oya)
+
+Kod omborida saqlanadigan to'liq dvigatel (SMC, Signal DNA, AI Kengash,
+Learning). PHP PRO porting uchun etalon. Ishga tushirish:
 ```bash
-python run_v2.py            # bot (hech qanday flag kerak emas!)
-python run_v2.py --test     # self-test
+python run_v2.py            # bot
+python run_v2.py --test     # self-test (40 ta)
 python run_v2.py --backtest # tarixiy test (--days 90 --symbols XAUUSD)
 python run_v2.py --check    # muhit tekshiruvi
 ```
@@ -30,14 +40,7 @@ python run_v2.py --check    # muhit tekshiruvi
 - ⏱️ **Trade Manager**: partial TP ladder, break-even, trailing, time-stop, juma himoyasi, kunlik maqsad qulfi
 - 📲 Telegram: /status da pog'ona pasporti, soatlik heartbeat
 
-> Eski v1: `python run.py` (saqlanib qolgan)
-
 ---
-
-## 🐘 PHP Lite — hostingda 24/7 (Windows/VPS kerak emas!)
-
-Libertex MT5 ga **MetaApi.cloud** ko'prigi orqali ulanadigan yengil dvigatel —
-istalgan PHP hostingda (cPanel cron) ishlaydi. Batafsil: [`php/README_PHP.md`](./php/README_PHP.md)
 
 ```
 php/cycle.php  — har daqiqa cron: tahlil → risk → savdo → boshqaruv
