@@ -89,16 +89,19 @@ label{color:#8b949e;font-size:13px}
     $host = $_SERVER['HTTP_HOST'] ?? 'saytingiz.uz';
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $cronUrl = $scheme . '://' . $host . '/tortinmang/cycle.php?key=' . $cfg['CRON_KEY'];
+    $cliCron = '* * * * * php ' . __DIR__ . '/cycle.php >> /dev/null 2>&1';
 ?>
 <div class="ok">✅ <b>config.php saqlandi!</b>
 <?= $msg === 'OK_DB' ? ' MySQL jadvallari yaratildi 🗄️' : '' ?><br><br>
-<b>Endi (kompyuter umuman kerak emas):</b><br>
+<b>Keyingi 2 qadam:</b><br>
 1) <a href="admin.php">admin.php</a> — Libertex hisobni ulang va avto savdoni yoqing<br>
-2) <a href="check.php">check.php</a> — hammasi yashilmi?<br>
-3) Cron qo'shing (3 xil usuldan biri, qarang README_PHP.md)<br>
-4) <b>install.php faylni o'chiring!</b><br><br>
-<b>Cron URL (HTTP usul uchun, nusxalab oling):</b><br>
+2) Quyidagi cron qatorini qo'shing (ISPmanager → Vazifalar → Cron jobs):<br>
+<input value="<?= htmlspecialchars($cliCron) ?>" readonly style="font-size:12px" onclick="this.select()">
+<small>Agar "php" topilmasa, o'rniga <b>/usr/bin/php</b> yozing.
+CLI cron umuman ishlamasa, HTTP usul:</small>
 <input value="<?= htmlspecialchars($cronUrl) ?>" readonly style="font-size:12px" onclick="this.select()">
+<small>HTTP usul: <code>* * * * * wget -q -O /dev/null "YUQORIDAGI_URL"</code><br>
+3) <a href="check.php">check.php</a> yashilmi? → <b>install.php ni o'chiring!</b></small>
 </div>
 <?php elseif ($msg === 'OK_DBERR'): ?>
 <div class="err">⚠️ config saqlandi, lekin <b>MySQL ga ulanib bo'lmadi</b> —

@@ -7,7 +7,9 @@
   admin.php va Telegram orqali boshqarasiz.
 ==========================================================
 
-1) ZIP ni oching -> papka ichini hosting www/tortinmang/ ga yuklang.
+1) ISPmanager -> Fayl menejeri:
+   - www/domen.uz ichida "tortinmang" papka yarating
+   - ZIP ni shu papkaga yuklab, EXTRACT qiling (fayllar to'g'ri tushadi)
 
 2) MetaApi: https://app.metaapi.cloud
    - Ro'yxatdan o'ting -> API TOKEN oling (hisob admin panelda avtomatik ulanadi)
@@ -18,9 +20,8 @@
 
 4) Brauzerda: /tortinmang/install.php
    - Formani to'ldiring (MetaApi + DB + admin parol)
-   - Saqlash -> "MySQL jadvallari yaratildi" + CRON URL (nusxalang!)
-   - check.php: ulanishlar YASHIL
-   - test.php: dvigatel logikasi YASHIL
+   - Saqlash -> tayyor CRON QATORI ko'rsatiladi (nusxalang!)
+   - check.php va test.php: YASHIL
    - install.php ni O'CHIRING!
 
 5) /tortinmang/admin.php — ADMIN PANEL:
@@ -28,15 +29,12 @@
    - "Avto savdo" tugmasini yoqing -> bot o'zi savdo ochib yopadi
    - Pozitsiyalar, risk sozlamalari, statistika — hammasi shu yerda
 
-6) Cron (3 usuldan biri — crontab.txt da batafsil):
-   A) CLI (eng ishonchli):
-      * * * * * /usr/bin/php /home/USER/www/domen/tortinmang/cycle.php >> /dev/null 2>&1
-   B) HTTP (CLI yo'q bo'lsa): install.php ko'rsatgan CRON URL:
-      * * * * * wget -q -O /dev/null "https://domen/tortinmang/cycle.php?key=KEY"
-   C) Tashqi servis: cron-job.org da shu URL ni 60 sekka qo'ying
+6) Cron: install.php ko'rsatgan qatorni ISPmanager -> Cron jobs ga qo'ying.
+   (boshqa usullar: crontab.txt)
 
-7) status.php — jonli panel; Telegram: /status /stats /history /closeall
+7) index.php — 4 bosqichli yo'l-yo'riq: hammasi ✅ bo'lsa BOT ISHLAYAPT!
+   status.php — jonli panel; Telegram: /status /stats /history /closeall
 
 DB bo'lmasa ham ishlaydi (json fayl rejimi).
 Birinchi hafta DEMO Libertex hisobda sinang!
-To'liq qo'llanma: php/README_PHP.md
+To'liq qo'llanma: README_PHP.md (zip ichida)
