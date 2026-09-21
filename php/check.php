@@ -70,7 +70,11 @@ if (empty($cfg['DB_NAME'])) {
     }
 }
 
-// 7. Yozish huquqi (state/log)
+// 7. CRON kalit (HTTP cron usuli uchun)
+row(!empty($cfg['CRON_KEY']), 'Cron kalit',
+    !empty($cfg['CRON_KEY']) ? 'HTTP cron tayyor' : 'install.php avtomatik yaratadi');
+
+// 8. Yozish huquqi (state/log)
 $w = @file_put_contents($dir . '/.write_test', 'ok');
 row($w !== false, 'Papka yozish huquqi');
 @unlink($dir . '/.write_test');

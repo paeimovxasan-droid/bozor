@@ -1,8 +1,22 @@
-# 🐘 TORTINMANG.UZ PHP Lite — Hostingda 24/7 (Libertex MT5)
+# 🐘 TORTINMANG.UZ PHP Lite — 100% HOSTING, kompyuter kerak emas
 
-Python/Windows/VPS **kerak emas** — istalgan PHP hostingda (cPanel cron)
-ishlaydigan to'liq savdo dvigateli. Libertex MT5 hisobga **MetaApi.cloud**
-bulut ko'prigi orqali ulanadi.
+**Kompyuter, Python, Windows, VPS — hech biri kerak emas.** Bot to'liq
+arzon shared hostingda ishlaydi: cron har daqiqa siklni yurgizadi,
+Libertex MT5 ga **MetaApi.cloud** bulut ko'prigi orqali ulanadi,
+DeepSeek AI va Telegram ham HTTP orqali — hammasi hosting ichida.
+Siz faqat telefoningizdan `admin.php` va Telegram orqali kuzatasiz.
+
+## ✅ Hostingda nimalar avtomatik ishlaydi
+
+| Vazifa | Qayerda ishlaydi |
+|--------|------------------|
+| Savdo sikli (har daqiqa) | Hosting cron |
+| Libertex MT5 savdolari | MetaApi buluti (MetaTrader serveri) |
+| DeepSeek AI tahlil | HTTP so'rov hostingdan |
+| Telegram signallar/buyruqlar | getUpdates polling hostingdan |
+| Balans/jurnal saqlash | MySQL (yoki json fayl) hostingda |
+| Hisob ulash | admin.php — brauzerdan (telefon bo'ladimi!) |
+| Avto savdo yoqish/o'chirish | admin.php tugmasi |
 
 ## 📦 Tarkib
 
@@ -35,50 +49,34 @@ bulut ko'prigi orqali ulanadi.
    yaratadi** (yoki qo'lda: *phpMyAdmin → Import → schema.sql*).
 
 4. **O'rnatish:** brauzerda `https://domen.uz/tortinmang/install.php` →
-   forma (MetaApi token/account, DeepSeek, Telegram, **DB host/name/user/pass**)
-   → Saqlash → "MySQL jadvallari yaratildi 🗄️" ko'rinsin.
+   forma (MetaApi **token**, DeepSeek, Telegram, **DB host/name/user/pass**,
+   admin parol) → Saqlash → "MySQL jadvallari yaratildi 🗄️" ko'rinsin.
+   Sahifada **CRON URL** ko'rsatiladi — nusxalab oling.
 
-5. **Tekshiruv:** `check.php` — hamma qator yashil ✅ bo'lsin.
+5. **Hisob ulash:** `admin.php` → parol bilan kiring → Libertex MT5
+   login/parol/server kiriting → **"Hisobni ulash"** tugmasi — hisob
+   avtomatik yaratilib ulanadi. **Avto savdo** ni yoqing.
 
-6. **Cron:** ISPmanager → *Cron (rejali vazifalar)* → qo'shish:
-   ```
-   * * * * *  /usr/bin/php  /home/USERNAME/www/domen.uz/tortinmang/cycle.php
-   ```
-   PHP yo'li hostingda boshqacha bo'lishi mumkin (`php8.4`,
-   `/usr/local/bin/php`) — ISPmanager "PHP yo'llari" bo'limida yoki
-   qo'llab-quvvatlashdan aniqlang. `>> /dev/null 2>&1` qo'shish unutilmasin.
+6. **Tekshiruv:** `check.php` — hamma qator yashil ✅ bo'lsin.
 
-7. **Xavfsizlik:** `install.php` ni **o'chiring**; `.htaccess` state/log/
+7. **Cron (3 usuldan biri, qarang crontab.txt):**
+   - **CLI (eng ishonchli):** ISPmanager → *Cron jobs* → qo'shish:
+     ```
+     * * * * *  /usr/bin/php  /home/USERNAME/www/domen.uz/tortinmang/cycle.php
+     ```
+   - **HTTP (wget):** CLI ruxsat bo'lmasa — CRON URL ni wget bilan chaqirish:
+     ```
+     * * * * * wget -q -O /dev/null "https://domen.uz/tortinmang/cycle.php?key=CRON_KEY"
+     ```
+   - **Tashqi servis:** cron-job.org da bepul hisob → CRON URL, 60 sek interval.
+
+8. **Xavfsizlik:** `install.php` ni **o'chiring**; `.htaccess` state/log/
    journal/config ni tashqaridan yopib qo'ygan.
 
-8. **Kuzatish:** `status.php` (Saqlash: **MySQL** ko'rinadi) va Telegram.
+9. **Kuzatish:** `status.php` (Saqlash: **MySQL** ko'rinadi), `admin.php`
+   va Telegram — hammasi telefonda ham ochiladi. Kompyuter kerak emas!
 
 > Eslatma: DB sozlanmasa ham bot ishlayveradi — json fayl rejimida.
-
-## 🚀 O'rnatish — 4 qadam
-
-### 1. MetaApi hisob (5 daqiqa)
-1. https://app.metaapi.cloud → ro'yxatdan o'ting
-2. **Accounts** → Add account: broker **ForexClub/Libertex**, MT5 login/parol,
-   server `ForexClub-MT5 Real Server`
-3. **Token** va **Account ID** ni ko'chirib oling (bepul tarif yetarli)
-
-### 2. Hostingga yuklash
-`php/` papka ichidagini hosting `public_html/tortinmang/` ga yuklang
-(FTP yoki file manager; **TORTINMANG-PHP.zip** ni ochib tashlang).
-
-### 3. Web o'rnatuvchi
-Brauzerda oching: `https://saytingiz.uz/tortinmang/install.php`
-→ formani to'ldiring → Saqlash → `check.php` da hammasi yashil bo'lsin →
-**install.php ni o'chiring!**
-
-### 4. Cron
-cPanel → Cron Jobs:
-```
-* * * * * /usr/bin/php /home/USER/public_html/tortinmang/cycle.php >> /dev/null 2>&1
-```
-
-TAYYOR!  `status.php` panel va Telegram xabarlari orqali kuzating.
 
 ## 📱 Telegram buyruqlari (har daqiqa javob beradi)
 

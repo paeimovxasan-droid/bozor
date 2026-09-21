@@ -18,9 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'DB_USER' => trim($_POST['dbuser'] ?? ''),
         'DB_PASS' => trim($_POST['dbpass'] ?? ''),
         'ADMIN_PASS' => trim($_POST['adminpass'] ?? '') ?: 'admin123',
+        'CRON_KEY' => trim($_POST['cronkey'] ?? '') ?: bin2hex(random_bytes(8)),
     ];
-    if ($cfg['META_API_TOKEN'] === '' || $cfg['META_ACCOUNT_ID'] === '') {
-        $msg = 'MetaApi token va account ID majburiy!';
+    if ($cfg['META_API_TOKEN'] === '') {
+        $msg = 'MetaApi token majburiy! Hisobni keyin admin.php da ulaysiz.';
     } else {
         $extra = <<<'PHP'
 
@@ -77,11 +78,21 @@ button{background:#238636;color:#fff;padding:12px 24px;border:0;border-radius:8p
 label{color:#8b949e;font-size:13px}
 </style></head><body>
 <h1>🤖 TORTINMANG.UZ — O'rnatish</h1>
-<?php if ($msg === 'OK' || $msg === 'OK_DB'): ?>
+<?php if ($msg === 'OK' || $msg === 'OK_DB'):
+    $host = $_SERVER['HTTP_HOST'] ?? 'saytingiz.uz';
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $cronUrl = $scheme . '://' . $host . '/tortinmang/cycle.php?key=' . $cfg['CRON_KEY'];
+?>
 <div class="ok">✅ <b>config.php saqlandi!</b>
-<?= $msg === 'OK_DB' ? ' MySQL jadvallari yaratildi 🗄️' : '' ?><br>
-Endi: 1) <a href="check.php">check.php</a> bilan ulanishni tekshiring,
-2) cron qo'shing, 3) <b>install.php faylni o'chiring</b> (xavfsizlik)!</div>
+<?= $msg === 'OK_DB' ? ' MySQL jadvallari yaratildi 🗄️' : '' ?><br><br>
+<b>Endi (kompyuter umuman kerak emas):</b><br>
+1) <a href="admin.php">admin.php</a> — Libertex hisobni ulang va avto savdoni yoqing<br>
+2) <a href="check.php">check.php</a> — hammasi yashilmi?<br>
+3) Cron qo'shing (3 xil usuldan biri, qarang README_PHP.md)<br>
+4) <b>install.php faylni o'chiring!</b><br><br>
+<b>Cron URL (HTTP usul uchun, nusxalab oling):</b><br>
+<input value="<?= htmlspecialchars($cronUrl) ?>" readonly style="font-size:12px" onclick="this.select()">
+</div>
 <?php elseif ($msg === 'OK_DBERR'): ?>
 <div class="err">⚠️ config saqlandi, lekin <b>MySQL ga ulanib bo'lmadi</b> —
 ma'lumotlar faylda saqlanadi. DB ma'lumotlarini ISPmanager da tekshiring.</div>
@@ -91,8 +102,8 @@ ma'lumotlar faylda saqlanadi. DB ma'lumotlarini ISPmanager da tekshiring.</div>
 <form method="post">
 <label>MetaApi TOKEN (app.metaapi.cloud/token)</label>
 <input name="token" placeholder="eyJhbGciOi...">
-<label>MetaApi ACCOUNT ID (uuid)</label>
-<input name="account" placeholder="865d3a4d-...">
+<label>MetaApi ACCOUNT ID (ixtiyoriy — admin.php o'zi yaratadi)</label>
+<input name="account" placeholder="bo'sh qoldirishingiz mumkin">
 <label>DeepSeek API KEY (ixtiyoriy, sk-...)</label>
 <input name="deepseek" placeholder="sk-...">
 <label>Telegram BOT TOKEN (ixtiyoriy)</label>
@@ -110,6 +121,8 @@ ma'lumotlar faylda saqlanadi. DB ma'lumotlarini ISPmanager da tekshiring.</div>
 <input name="dbuser" placeholder="username_tmuser">
 <label>DB PASSWORD</label>
 <input name="dbpass" type="password" placeholder="parol">
+<label>⏰ CRON KALIT (bo'sh qoldiring — avtomatik yaratiladi)</label>
+<input name="cronkey" placeholder="avtomatik">
 <button type="submit">💾 Saqlash</button>
 </form>
 </body></html>

@@ -1,7 +1,24 @@
-# TORTINMANG.UZ PHP Lite — cron namunasi
-# cPanel → Cron Jobs ga qo'shing (USER o'rniga o'z usernamingiz):
+# TORTINMANG.UZ PHP Lite — cron (100% hosting, kompyuter kerak emas)
+# =============================================================
+# 3 usuldan BIRINI tanlang. Har biri HAR DAQIQA ishlashi shart.
 #
-* * * * * /usr/bin/php /home/USER/public_html/tortinmang/cycle.php >> /dev/null 2>&1
+# ── 1-USUL: CLI cron (eng ishonchli, ISPmanager "Cron jobs") ──
+# Yo'l: ISPmanager → Vazifalar → Cron jobs → Yaratish
+* * * * * /usr/bin/php /home/USER/www/domen.uz/tortinmang/cycle.php >> /dev/null 2>&1
 #
-# php yo'li noma'lum bo'lsa: which php
-# Ba'zi hostinglarda: /usr/local/bin/php yoki /opt/php81/bin/php
+# php yo'li hostingda farq qilishi mumkin: /usr/local/bin/php,
+# /opt/php84/bin/php ... ISPmanager cron muharririda ko'pincha
+# faqat: php /home/USER/... deb yozish ham kifoya.
+#
+# ── 2-USUL: HTTP cron (wget/curl) — CLI yo'q bo'lsa ────────────
+# CRON_KEY ni install.php saqlanganda ko'rsatilgan URL dan oling:
+* * * * * wget -q -O /dev/null "https://domen.uz/tortinmang/cycle.php?key=CRON_KEY"
+# yoki:
+* * * * * curl -s -o /dev/null "https://domen.uz/tortinmang/cycle.php?key=CRON_KEY"
+#
+# ── 3-USUL: tashqi cron servisi (ba'zan faqat shu ruxsat) ──────
+# cron-job.org yoki easycron.com da bepul hisob oching, URL sifatida
+# yuqoridagi cycle.php?key=CRON_KEY manzilini kiriting, interval 60 sek.
+#
+# Tekshirish: status.php da "BOT JONLI" yashil bo'lishi kerak
+# (sikl 180 soniyadan eski bo'lmasa).

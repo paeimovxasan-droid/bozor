@@ -12,7 +12,11 @@
 return [
     // ── MetaApi (Libertex MT5 ko'prigi) ─────────────────────────
     'META_API_TOKEN'  => '',   // app.metaapi.cloud/token sahifasidan
-    'META_ACCOUNT_ID' => '',   // app.metaapi.cloud/accounts sahifasidan
+    'META_ACCOUNT_ID' => '',   // admin.php o'zi yaratadi yoki qo'lda kiriting
+
+    // ── Admin panel va HTTP cron ─────────────────────────────────
+    'ADMIN_PASS' => 'admin123', // admin.php kirish paroli (o'zgartiring!)
+    'CRON_KEY'   => '',          // cycle.php?key=... HTTP cron uchun kalit
 
     // ── DeepSeek AI (ixtiyoriy, lekin tavsiya) ──────────────────
     'DEEPSEEK_API_KEY' => '',  // sk-...

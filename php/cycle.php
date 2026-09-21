@@ -17,6 +17,17 @@ require_once $dir . '/metaapi.php';
 
 date_default_timezone_set($cfg['TIMEZONE'] ?? 'Asia/Tashkent');
 
+// ── 100% HOSTING: CLI cron yoki maxsus kalit bilan HTTP dan ────
+$isHttp = PHP_SAPI !== 'cli';
+if ($isHttp) {
+    if (empty($cfg['CRON_KEY']) || !hash_equals((string)$cfg['CRON_KEY'], (string)($_GET['key'] ?? ''))) {
+        http_response_code(403); exit('403');
+    }
+    ignore_user_abort(true);
+    @set_time_limit(59);
+    header('Content-Type: text/plain; charset=utf-8');
+}
+
 // ── Lock: parallel cron nusxalarini to'xtatish ─────────────────
 $lockF = fopen($dir . '/cycle.lock', 'c');
 if (!$lockF || !flock($lockF, LOCK_EX | LOCK_NB)) exit(0);
@@ -333,6 +344,10 @@ $state['last_cycle'] = time();
 state_save($dir . '/state.json', $state, $cfg);
 log_line($dir, "sikl ok: bal=$balance pos=" . count($positions) .
     ($can_trade ? '' : " [$why]"));
+if ($isHttp) {
+    echo 'OK ' . date('H:i:s') . " | balans=$balance | poz=" . count($positions) .
+        ($can_trade ? '' : " | sabab: $why") . "\n";
+}
 flock($lockF, LOCK_UN);
 exit(0);
 
