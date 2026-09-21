@@ -1,0 +1,15 @@
+{"event": "open", "symbol": "ETHUSD", "side": "BUY", "balance": 10.0, "lot": 0.01, "sl_dist": 8.0, "risk_pct": 8.0, "conf": 70.0, "boost": 0.0, "veto": false, "breath": 65, "ts": "2026-09-15T22:25:29"}
+{"event": "close_mt5", "ticket": 11130, "symbol": "ETHUSD", "profit": -0.08, "reason": "STOP_LOSS", "ts": "2026-09-15T22:26:15"}
+{"event": "open", "symbol": "ETHUSD", "side": "BUY", "balance": 10.0, "lot": 0.01, "sl_dist": 8.0, "risk_pct": 0.8, "conf": 70.0, "boost": 0.0, "veto": false, "breath": 65, "ts": "2026-09-15T22:26:15"}
+{"event": "close_mt5", "ticket": 11243, "symbol": "XAUUSD", "profit": -0.12, "reason": "STOP_LOSS", "ts": "2026-09-15T22:27:23"}
+{"event": "close_mt5", "ticket": 11244, "symbol": "XAUUSD", "profit": -0.1, "reason": "STOP_LOSS", "ts": "2026-09-15T22:27:23"}
+{"event": "open", "symbol": "ETHUSD", "side": "BUY", "balance": 10.0, "lot": 0.01, "sl_dist": 8.0, "risk_pct": 0.8, "conf": 70.0, "boost": 0.0, "veto": false, "breath": 65, "ts": "2026-09-15T22:27:23"}
+{"event": "close_mt5", "ticket": 11823, "symbol": "XAUUSD", "profit": -0.12, "reason": "STOP_LOSS", "ts": "2026-09-15T22:37:02"}
+{"event": "close_mt5", "ticket": 11824, "symbol": "XAUUSD", "profit": -0.1, "reason": "STOP_LOSS", "ts": "2026-09-15T22:37:02"}
+{"event": "open", "symbol": "ETHUSD", "side": "BUY", "balance": 10.0, "lot": 0.01, "sl_dist": 8.0, "risk_pct": 0.8, "conf": 70.0, "boost": 0.0, "veto": false, "breath": 65, "ts": "2026-09-15T22:37:02"}
+{"event": "close_mt5", "ticket": 11987, "symbol": "XAUUSD", "profit": -0.12, "reason": "STOP_LOSS", "ts": "2026-09-15T22:39:47"}
+{"event": "close_mt5", "ticket": 11988, "symbol": "XAUUSD", "profit": -0.1, "reason": "STOP_LOSS", "ts": "2026-09-15T22:39:47"}
+{"event": "open", "symbol": "ETHUSD", "side": "BUY", "balance": 10.0, "lot": 0.01, "sl_dist": 8.0, "risk_pct": 0.8, "conf": 70.0, "boost": 0.0, "veto": false, "breath": 65, "ts": "2026-09-15T22:39:47"}
+{"event": "close_mt5", "ticket": 12110, "symbol": "XAUUSD", "profit": -0.12, "reason": "STOP_LOSS", "ts": "2026-09-15T22:41:50"}
+{"event": "close_mt5", "ticket": 12111, "symbol": "XAUUSD", "profit": -0.1, "reason": "STOP_LOSS", "ts": "2026-09-15T22:41:50"}
+{"event": "open", "symbol": "ETHUSD", "side": "BUY", "balance": 10.0, "lot": 0.01, "sl_dist": 8.0, "risk_pct": 0.8, "conf": 70.0, "boost": 0.0, "veto": false, "breath": 65, "ts": "2026-09-15T22:41:50"}
