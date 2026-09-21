@@ -72,8 +72,9 @@ Siz faqat telefoningizdan `admin.php` va Telegram orqali kuzatasiz.
      ```
    - **Tashqi servis:** cron-job.org da bepul hisob → CRON URL, 60 sek interval.
 
-8. **Xavfsizlik:** `install.php` ni **o'chiring**; `.htaccess` state/log/
-   journal/config ni tashqaridan yopib qo'ygan.
+8. **Xavfsizlik:** `install.php` ni **o'chiring** (o'chirilmagan bo'lsa ham
+   mavjud config ni qayta yozishda joriy admin parol so'raladi); `.htaccess`
+   state/log/journal/config ni tashqaridan yopadi; admin panel CSRF himoyada.
 
 9. **Kuzatish:** `status.php` (Saqlash: **MySQL** ko'rinadi), `admin.php`
    va Telegram — hammasi telefonda ham ochiladi. Kompyuter kerak emas!
