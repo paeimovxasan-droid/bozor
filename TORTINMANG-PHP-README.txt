@@ -18,8 +18,9 @@
 
 4) Brauzerda: /tortinmang/install.php
    - Formani to'ldiring (MetaApi + DB + admin parol)
-   - Saqlash -> "MySQL jadvallari yaratildi"
-   - check.php: hammasi YASHIL
+   - Saqlash -> "MySQL jadvallari yaratildi" + CRON URL (nusxalang!)
+   - check.php: ulanishlar YASHIL
+   - test.php: dvigatel logikasi YASHIL
    - install.php ni O'CHIRING!
 
 5) /tortinmang/admin.php — ADMIN PANEL:

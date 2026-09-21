@@ -22,6 +22,8 @@ small{color:#8b949e}
 <?php endif; ?>
 <a class="card" href="check.php">🧪 <b>Ulanish tekshiruvi</b><br>
 <small>MetaApi / DeepSeek / Telegram holati</small></a>
+<a class="card" href="test.php">🔬 <b>Dvigatel self-test</b><br>
+<small>indikatorlar, risk, pog'ona, jurnal — ichki mantiq tekshiruvi</small></a>
 <a class="card" href="status.php">📊 <b>Jonli status paneli</b><br>
 <small>balans, P&L, pog'ona, statistika</small></a>
 <a class="card" href="admin.php">🛠️ <b>Admin panel</b><br>

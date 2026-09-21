@@ -25,6 +25,7 @@ Siz faqat telefoningizdan `admin.php` va Telegram orqali kuzatasiz.
 | `index.php` | **Bosh sahifa** — barcha panellarga havolalar |
 | `install.php` | **Web o'rnatuvchi** — brauzerda forma, config.php yozadi |
 | `check.php` | **Ulanish tekshiruvi** — MetaApi/DeepSeek/Telegram ✅❌ |
+| `test.php` | **Dvigatel self-test** — indikator/risk/jurnal logikasi |
 | `status.php` | **Jonli panel** — balans, P&L, pog'ona, statistika (60s) |
 | `cycle.php` | Asosiy sikl (cron har daqiqa) + 10 Telegram buyrug'i |
 | `metaapi.php` | Libertex MT5 ko'prigi (savdo/shamlar/pozitsiya) |
@@ -57,7 +58,8 @@ Siz faqat telefoningizdan `admin.php` va Telegram orqali kuzatasiz.
    login/parol/server kiriting → **"Hisobni ulash"** tugmasi — hisob
    avtomatik yaratilib ulanadi. **Avto savdo** ni yoqing.
 
-6. **Tekshiruv:** `check.php` — hamma qator yashil ✅ bo'lsin.
+6. **Tekshiruv:** `check.php` (ulanishlar) va `test.php` (dvigatel logikasi) —
+   hammasi yashil ✅ bo'lsin.
 
 7. **Cron (3 usuldan biri, qarang crontab.txt):**
    - **CLI (eng ishonchli):** ISPmanager → *Cron jobs* → qo'shish:
