@@ -5,11 +5,22 @@
  */
 $dir = __DIR__;
 $cfgFile = $dir . '/config.php';
+require_once $dir . '/lib.php';
 $baseCfg = is_file($cfgFile) ? require $cfgFile : [];
 $state = state_load($dir . '/state.json', $baseCfg);
 $cfg = array_merge($baseCfg, $state['settings'] ?? []);
 if (!empty($state['meta_token'])) $cfg['META_API_TOKEN'] = $state['meta_token'];
 if (!empty($state['meta_account_id'])) $cfg['META_ACCOUNT_ID'] = $state['meta_account_id'];
+
+// ── CRON ZAXIRA: cron qo'shilmagan bo'lsa ham, sahifa ochiq
+//    turganda sikl avtomatik ishga tushadi (75 sek dan eski bo'lsa) ──
+if (is_file($cfgFile) && time() - (int)($state['last_cycle'] ?? 0) > 75) {
+    $disabled = array_map('trim', explode(',', (string)ini_get('disable_functions')));
+    if (function_exists('exec') && !in_array('exec', $disabled)) {
+        @exec('php ' . escapeshellarg($dir . '/cycle.php') . ' > /dev/null 2>&1 &');
+    }
+}
+
 $tier = $state['tier'] ?? '—';
 $last = $state['last_cycle'] ?? 0;
 $ago = $last ? (time() - $last) : null;
@@ -33,8 +44,16 @@ small{color:#8b949e}
 <h1>🤖 TORTINMANG.UZ <small>PHP Lite</small></h1>
 
 <div class="card">
-  <span class="<?= $alive ? 'green' : 'red' ?>"><?= $alive ? '🟢 BOT JONLI' : '🔴 BOT UXLAMAGAN (cron?)' ?></span>
+  <span class="<?= $alive ? 'green' : 'red' ?>"><?= $alive ? '🟢 BOT JONLI' : '🔴 BOT UXLAMAGAN' ?></span>
   <?php if ($ago !== null): ?><small> — <?= $ago ?> soniya oldin sikl</small><?php endif; ?>
+  <?php if (!$alive && is_file($cfgFile)): ?>
+  <hr style="border-color:#30363d">
+  <small>😴 Botni uyg'otish: quyidagi qatorni ISPmanager → Cron jobs ga qo'shing
+  (yoki shu sahifa ochiq tursa, zaxira rejimda o'zi yuradi):</small>
+  <input readonly style="width:100%;font-size:11px;background:#0d1117;color:#e6edf3;
+  border:1px solid #30363d;border-radius:6px;padding:6px;margin-top:6px"
+  onclick="this.select()" value="* * * * * php <?= htmlspecialchars(__DIR__) ?>/cycle.php >> /dev/null 2>&1">
+  <?php endif; ?>
 </div>
 
 <div class="card">

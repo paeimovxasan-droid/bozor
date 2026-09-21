@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'DB_NAME' => trim($_POST['dbname'] ?? ''),
         'DB_USER' => trim($_POST['dbuser'] ?? ''),
         'DB_PASS' => trim($_POST['dbpass'] ?? ''),
-        'ADMIN_PASS' => trim($_POST['adminpass'] ?? '') ?: 'admin123',
+        'ADMIN_PASS' => trim($_POST['adminpass'] ?? '') ?: bin2hex(random_bytes(6)),
         'CRON_KEY' => trim($_POST['cronkey'] ?? '') ?: bin2hex(random_bytes(8)),
     ];
     if ($cfg['META_API_TOKEN'] === '') {
@@ -93,6 +93,8 @@ label{color:#8b949e;font-size:13px}
 ?>
 <div class="ok">✅ <b>config.php saqlandi!</b>
 <?= $msg === 'OK_DB' ? ' MySQL jadvallari yaratildi 🗄️' : '' ?><br><br>
+<b>🔐 ADMIN PAROLINGIZ: <span style="color:#58a6ff;font-size:16px"><?= htmlspecialchars($cfg['ADMIN_PASS']) ?></span></b>
+<br><small>⚠️ Hozir nusxalab oling — admin.php ga kirish uchun kerak!</small><br><br>
 <b>Keyingi 2 qadam:</b><br>
 1) <a href="admin.php">admin.php</a> — Libertex hisobni ulang va avto savdoni yoqing<br>
 2) Quyidagi cron qatorini qo'shing (ISPmanager → Vazifalar → Cron jobs):<br>
@@ -126,8 +128,8 @@ joriy admin parolni kiriting (bekor qilish uchun sahifani yoping).</div>
 <input name="tgtoken" placeholder="123456:AAH...">
 <label>Telegram CHAT ID (ixtiyoriy)</label>
 <input name="tgchat" placeholder="8870183299">
-<label>🔐 ADMIN PANEL PAROLI (admin.php uchun)</label>
-<input name="adminpass" type="password" placeholder="admin123 (o'zgartiring!)">
+<label>🔐 ADMIN PANEL PAROLI (bo'sh qoldiring — avtomatik yaratiladi)</label>
+<input name="adminpass" type="password" placeholder="avtomatik">
 <h1 style="font-size:16px">🗄️ MySQL (ISPmanager — tavsiya etiladi)</h1>
 <label>DB HOST (ISPmanager → Ma'lumot bazalari)</label>
 <input name="dbhost" placeholder="localhost">
