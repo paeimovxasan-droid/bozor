@@ -24,5 +24,7 @@ small{color:#8b949e}
 <small>MetaApi / DeepSeek / Telegram holati</small></a>
 <a class="card" href="status.php">📊 <b>Jonli status paneli</b><br>
 <small>balans, P&L, pog'ona, statistika</small></a>
+<a class="card" href="admin.php">🛠️ <b>Admin panel</b><br>
+<small>Libertex hisob ulash, avto savdo, pozitsiyalar, sozlamalar</small></a>
 <p><small>Qo'llanma: README_PHP.md | Cron: crontab.txt</small></p>
 </body></html>

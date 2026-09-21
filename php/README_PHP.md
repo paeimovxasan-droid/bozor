@@ -85,6 +85,19 @@ TAYYOR!  `status.php` panel va Telegram xabarlari orqali kuzating.
 `/status` `/positions` `/closeall` `/close ID` `/pause` `/resume`
 `/stats` `/history` `/risk` `/help`
 
+## 🛠️ Admin panel (admin.php)
+
+Parol bilan kiriladi (install.php da o'rnatilgan `ADMIN_PASS`). Imkoniyatlar:
+
+- **🏦 Libertex hisobni panel orqali ulash** — MT5 login/parol/server kiritasiz,
+  panel MetaApi provisioning API orqali hisobni **o'zi yaratib ulaydi**
+  (yoki tayyor Account ID kiritish ham mumkin)
+- **🤖 Avto savdo tugmasi** — yoqilgan bo'lsa bot o'zi signal topadi,
+  savdo ochadi, partial TP + BE + trailing bilan **foydani qulflab yopadi**
+- **📂 Jonli pozitsiyalar** — har birini yoki hammasini bir tugma bilan yopish
+- **🛡️ Risk sozlamalari** — risk %, lot cap, kunlik maqsad/limit — brauzerdan
+- **📈 Statistika va jurnal** — WR/PF, oxirgi savdolar jadvali
+
 ## 🧠 Professional qatlamlar
 
 - **Savdo jurnali** (`journal.json`) — har yopilgan savdo yoziladi, WR/PF hisoblanadi

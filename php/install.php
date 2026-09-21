@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'DB_NAME' => trim($_POST['dbname'] ?? ''),
         'DB_USER' => trim($_POST['dbuser'] ?? ''),
         'DB_PASS' => trim($_POST['dbpass'] ?? ''),
+        'ADMIN_PASS' => trim($_POST['adminpass'] ?? '') ?: 'admin123',
     ];
     if ($cfg['META_API_TOKEN'] === '' || $cfg['META_ACCOUNT_ID'] === '') {
         $msg = 'MetaApi token va account ID majburiy!';
@@ -98,6 +99,8 @@ ma'lumotlar faylda saqlanadi. DB ma'lumotlarini ISPmanager da tekshiring.</div>
 <input name="tgtoken" placeholder="123456:AAH...">
 <label>Telegram CHAT ID (ixtiyoriy)</label>
 <input name="tgchat" placeholder="8870183299">
+<label>🔐 ADMIN PANEL PAROLI (admin.php uchun)</label>
+<input name="adminpass" type="password" placeholder="admin123 (o'zgartiring!)">
 <h1 style="font-size:16px">🗄️ MySQL (ISPmanager — tavsiya etiladi)</h1>
 <label>DB HOST (ISPmanager → Ma'lumot bazalari)</label>
 <input name="dbhost" placeholder="localhost">

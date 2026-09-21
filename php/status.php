@@ -5,8 +5,11 @@
  */
 $dir = __DIR__;
 $cfgFile = $dir . '/config.php';
-$cfg = is_file($cfgFile) ? require $cfgFile : [];
-$state = state_load($dir . '/state.json', $cfg);
+$baseCfg = is_file($cfgFile) ? require $cfgFile : [];
+$state = state_load($dir . '/state.json', $baseCfg);
+$cfg = array_merge($baseCfg, $state['settings'] ?? []);
+if (!empty($state['meta_token'])) $cfg['META_API_TOKEN'] = $state['meta_token'];
+if (!empty($state['meta_account_id'])) $cfg['META_ACCOUNT_ID'] = $state['meta_account_id'];
 $tier = $state['tier'] ?? '—';
 $last = $state['last_cycle'] ?? 0;
 $ago = $last ? (time() - $last) : null;

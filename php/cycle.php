@@ -22,6 +22,12 @@ $lockF = fopen($dir . '/cycle.lock', 'c');
 if (!$lockF || !flock($lockF, LOCK_EX | LOCK_NB)) exit(0);
 
 $state = state_load($dir . '/state.json', $cfg);
+
+// ── Admin panel sozlamalari va hisob override lari ─────────────
+$cfg = array_merge($cfg, $state['settings'] ?? []);
+if (!empty($state['meta_token'])) $cfg['META_API_TOKEN'] = $state['meta_token'];
+if (!empty($state['meta_account_id'])) $cfg['META_ACCOUNT_ID'] = $state['meta_account_id'];
+
 $today = date('Y-m-d');
 if (($state['day'] ?? '') !== $today) {
     // ── KUNLIK AI HISOBOT: kechagi kun yakuni (yangi kun boshida) ──
@@ -87,6 +93,7 @@ foreach ($updates as $u) {
 
 // ── Risk qalqonlari ────────────────────────────────────────────
 $can_trade = true; $why = '';
+if (isset($state['auto']) && !$state['auto']) { $can_trade = false; $why = 'admin: avto savdo o\'chiq'; }
 if (!empty($state['paused'])) { $can_trade = false; $why = 'pauza (/resume)'; }
 if (!empty($state['paused_until'])) {
     if (time() < $state['paused_until']) { $can_trade = false; $why = 'anti-tilt pauza'; }
